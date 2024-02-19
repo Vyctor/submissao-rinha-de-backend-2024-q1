@@ -1,3 +1,5 @@
+import { config } from "dotenv";
+config();
 import pgp from "pg-promise";
 import DatabaseConnection from "./DatabaseConnection";
 
@@ -6,7 +8,8 @@ export class PgPromiseAdapter implements DatabaseConnection {
 
   constructor() {
     this.connection = pgp()(
-      "postgresql://admin:123@localhost:5432/rinha?schema=public"
+      process.env.DATABASE_URL ||
+        "postgresql://admin:123@localhost:5432/rinha?schema=public"
     );
   }
 

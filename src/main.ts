@@ -1,3 +1,6 @@
+import { config } from "dotenv";
+config();
+
 import express, { Request, Response } from "express";
 import cors from "cors";
 import { PgPromiseAdapter } from "./infra/database/PgPromiseAdapter";
@@ -5,6 +8,9 @@ import { PgPromiseAdapter } from "./infra/database/PgPromiseAdapter";
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+console.log("APP_PORT: ", process.env.APP_PORT);
+console.log("DATABASE_URL: ", process.env.DATABASE_URL);
 
 const appPort = process.env.APP_PORT || 3000;
 
