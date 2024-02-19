@@ -17,7 +17,7 @@ CREATE TABLE "transacoes" (
   "id" SERIAL NOT NULL,
   "valor" INTEGER NOT NULL,
   "tipo" CHAR(1) NOT NULL,
-  "descricao" TEXT NOT NULL,
+  "descricao" TEXT,
   "realizada_em" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "cliente_id" INTEGER,
   CONSTRAINT "transacoes_pkey" PRIMARY KEY ("id")

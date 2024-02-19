@@ -9,7 +9,7 @@ export class PgPromiseAdapter implements DatabaseConnection {
   constructor() {
     this.connection = pgp()(
       process.env.DATABASE_URL ||
-        "postgresql://admin:123@localhost:5432/rinha?schema=public"
+        "postgresql://admin:123@localhost:5432/rinha?schema=public?pool=20?max=20?sslmode=disable"
     );
   }
 
