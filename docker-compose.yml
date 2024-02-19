@@ -1,0 +1,59 @@
+version: "3.9"
+services:
+  db:
+    container_name: db
+    hostname: db
+    image: postgres:latest
+    environment:
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_USER=admin
+      - POSTGRES_DB=rinha
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./script.sql:/docker-entrypoint-initdb.d/script.sql
+      - ./docker-data:/var/lib/postgresql/data
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "200MB"
+  #api1:
+  #  hostname: api1
+  #  container_name: api1
+  #  build:
+  #    context: .
+  #  ports:
+  #    - 4100:4100
+  #  environment:
+  #    - APP_PORT=4100
+  #    - DATABASE_URL=postgresql://admin:123@db:5432/rinha?schema=public
+  #  deploy:
+  #    resources:
+  #      limits:
+  #        cpus: '0.5'
+  #        memory: '150MB'
+  #  depends_on:
+  #    - db
+  #api2:
+  #  hostname: api2
+  #  container_name: api2
+  #  build:
+  #    context: .
+  #  ports:
+  #    - 4200:4200
+  #  environment:
+  #    - APP_PORT=4200
+  #    - DATABASE_URL=postgresql://admin:123@db:5432/rinha?schema=public
+  #  deploy:
+  #    resources:
+  #      limits:
+  #        cpus: '0.5'
+  #        memory: '150MB'
+  #  depends_on:
+  #    - db
+
+networks:
+  default:
+    driver: bridge
+    name: rinha-backend
