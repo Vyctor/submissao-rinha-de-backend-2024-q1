@@ -29,6 +29,7 @@ services:
     volumes:
       - ./script.sql:/docker-entrypoint-initdb.d/script.sql
       - ./postgres:/var/lib/postgresql/data
+      - ./postgresql.conf:/etc/postgresql.conf
     deploy:
       resources:
         limits:
