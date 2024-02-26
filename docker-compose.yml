@@ -13,7 +13,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.2"
+          cpus: "0.10"
           memory: "20MB"
   db:
     container_name: db
@@ -29,12 +29,11 @@ services:
     volumes:
       - ./script.sql:/docker-entrypoint-initdb.d/script.sql
       - ./postgres:/var/lib/postgresql/data
-      - ./postgresql.conf:/etc/postgresql.conf
     deploy:
       resources:
         limits:
-          cpus: "0.5"
-          memory: "200MB"
+          cpus: "0.80"
+          memory: "290MB"
   api1:
     restart: always
     hostname: api1
@@ -49,8 +48,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.4"
-          memory: "165MB"
+          cpus: "0.30"
+          memory: "120MB"
     depends_on:
       - db
   api2:
@@ -67,8 +66,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.4"
-          memory: "165MB"
+          cpus: "0.30"
+          memory: "120MB"
     depends_on:
       - db
 
