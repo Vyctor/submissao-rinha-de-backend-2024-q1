@@ -67,12 +67,15 @@ app.post("/clientes/:id/transacoes", async (req: Request, res: Response) => {
   const { id } = req.params;
   const { valor, tipo, descricao } = req.body;
 
-  if (tipo !== "c" && tipo !== "d") {
-    return res.status(400).send({ message: "Tipo de transação inválido" });
-  }
-
-  if (valor <= 0) {
-    return res.status(400).send({ message: "Valor inválido" });
+  if (
+    !id ||
+    !valor ||
+    valor <= 0 ||
+    !Number.isInteger(valor) ||
+    !["c", "d"].includes(tipo) ||
+    !descricao
+  ) {
+    return res.status(422).send({ message: "Parâmetros invalidos" });
   }
 
   const cliente = await connection.query(
@@ -124,7 +127,11 @@ app.post("/clientes/:id/transacoes", async (req: Request, res: Response) => {
 });
 
 app.get("/clientes/:id/extrato", async (req: Request, res: Response) => {
-  const { id } = req.params;
+  const id = parseInt(req.params.id);
+
+  if (Number.isNaN(id)) {
+    return res.status(422).send({ message: "Parâmetros invalidos" });
+  }
 
   const cliente = await connection.query(
     "SELECT * FROM clientes WHERE id = $1",
