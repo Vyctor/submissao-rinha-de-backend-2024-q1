@@ -1,5 +1,3 @@
-USE rinha;
-
 -- DROP TABLE IF EXISTS
 DROP TABLE IF EXISTS "transacoes";
 
